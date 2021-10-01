@@ -11,16 +11,22 @@ import {
 import { sendError, sendSuccess, validate } from '../shared/app/appController';
 import { jobSchemas } from './validationSchemas/job';
 import { JobDto } from './dto/job.dto';
+import { JobService } from './job.service';
 
 @Controller('jobs')
 export class JobController {
+  constructor(private readonly jobService: JobService) {}
   @Post()
   create(@Body() jobDto: JobDto, @Res() res: Response) {
     const { errors, data } = validate(jobSchemas.createJobSchema, jobDto);
     if (errors) {
       return sendError({ res, errors });
     }
-    return sendSuccess({ res, data });
+    const job = this.jobService.create(data);
+    if (job) {
+      return sendSuccess({ res, data: job });
+    }
+    return sendError({ res, errors: 'unable to create a job' });
   }
 
   @Get(':id')
@@ -29,12 +35,20 @@ export class JobController {
     if (errors) {
       return sendError({ res, errors });
     }
-    return sendSuccess({ res, data });
+    const job = this.jobService.find(data);
+    if (job) {
+      return sendSuccess({ res, data: job });
+    }
+    return sendError({ res, errors: 'unable to fetch record' });
   }
 
   @Get()
   findAll(@Res() res: Response) {
-    return sendSuccess({ res, data: [] });
+    const job = this.jobService.findAll();
+    if (job) {
+      return sendSuccess({ res, data: job });
+    }
+    return sendError({ res, errors: 'unable to fetch record' });
   }
 
   @Put(':id')
@@ -44,7 +58,11 @@ export class JobController {
     if (errors) {
       return sendError({ res, errors });
     }
-    return sendSuccess({ res, data });
+    const job = this.jobService.update(data);
+    if (job) {
+      return sendSuccess({ res, data: job });
+    }
+    return sendError({ res, errors: 'unable to update record' });
   }
 
   @Delete(':id')
@@ -53,6 +71,10 @@ export class JobController {
     if (errors) {
       return sendError({ res, errors });
     }
-    return sendSuccess({ res, data });
+    const job = this.jobService.delete(data);
+    if (job) {
+      return sendSuccess({ res, data: job });
+    }
+    return sendError({ res, errors: 'unable to remove record' });
   }
 }
