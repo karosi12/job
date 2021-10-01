@@ -12,6 +12,7 @@ API Base Endpoint:https://joboffer12.herokuapp.com/api
 - Nx monorepos
 
 # Features
+
 - As a user I need to be able to query existing job offers as a list.
 - As a user I need to be able to query details of a single job offer.
 - As a user I need to be able to create new job offers.
@@ -20,14 +21,13 @@ API Base Endpoint:https://joboffer12.herokuapp.com/api
 
 ## API Endpoints
 
-| Endpoint                                   | Functionality           |
-| ------------------------------------------ | -----------------------             |
-| POST /api/jobs/                            | create a job       |
-| GET /api/jobs/\<job_id>                   | Find a job           |
-| GET /api/jobs                  | Find jobs           |
-| PATCH /api/jobs/\<job_id>                 | update a job     |
-| DELETE /api/jobs/\<job_id>                | delete a job     |
-
+| Endpoint                   | Functionality |
+| -------------------------- | ------------- |
+| POST /api/jobs/            | create a job  |
+| GET /api/jobs/\<job_id>    | Find a job    |
+| GET /api/jobs              | Find jobs     |
+| PATCH /api/jobs/\<job_id>  | update a job  |
+| DELETE /api/jobs/\<job_id> | delete a job  |
 
 [Job offer](https://documenter.getpostman.com/view/10646382/UUy396NU)
 
@@ -36,6 +36,7 @@ API Base Endpoint:https://joboffer12.herokuapp.com/api
 - Download or clone
 - Open terminal inside the root directory of clone folder
 - Type `npm install` to install all dependencies
+- Goto Nx official website on how to setup [Nx](<(https://nx.dev/l/n/nest/overview)>) workspace if needed
 - `nx start` to run the app
 - `nx build` to run build app
 - `npm test` to run the test suits on the app
