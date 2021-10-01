@@ -8,6 +8,7 @@ import {
   Put,
   Res,
 } from '@nestjs/common';
+import { Response } from 'express';
 import { sendError, sendSuccess, validate } from '../shared/app/appController';
 import { jobSchemas } from './validationSchemas/job';
 import { JobDto } from './dto/job.dto';
