@@ -41,7 +41,7 @@ API Base Endpoint:https://joboffer12.herokuapp.com/api
 - `nx build` to run build app
 - `npm test` to run the test suits on the app
 
-API Endpoint: https://documenter.getpostman.com/view/10646382/UUy396NU
+API Documentation URI: https://documenter.getpostman.com/view/10646382/UUy396NU
 
 ## AUTHOR
 
