@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { Utils } from '../shared/utils';
 import { Job } from './interfaces/job.interface';
 import { JobDto } from './dto/job.dto';
-
 @Injectable()
 export class JobService {
   constructor(private readonly utils: Utils) {}
@@ -32,8 +31,11 @@ export class JobService {
 
   create(data: JobDto): Job {
     const value = { id: this.utils.generateId(), ...data };
-    this.jobs.unshift(value);
-    return value;
+    if (this.utils.valiateCreate(value)) {
+      this.jobs.unshift(value);
+      return value;
+    }
+    return;
   }
 
   update(data: JobDto): Job {
