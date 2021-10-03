@@ -23,7 +23,7 @@ API Base Endpoint:https://joboffer12.herokuapp.com/api
 
 | Endpoint                   | Functionality |
 | -------------------------- | ------------- |
-| POST /api/jobs/            | create a job  |
+| POST /api/jobs            | create a job  |
 | GET /api/jobs/\<job_id>    | Find a job    |
 | GET /api/jobs              | Find jobs     |
 | PATCH /api/jobs/\<job_id>  | update a job  |
@@ -31,12 +31,12 @@ API Base Endpoint:https://joboffer12.herokuapp.com/api
 
 [Job offer](https://documenter.getpostman.com/view/10646382/UUy396NU)
 
-# To Install
+# How to run the app
 
 - Download or clone
 - Open terminal inside the root directory of clone folder
 - Type `npm install` to install all dependencies
-- Goto Nx official website on how to setup [Nx](<(https://nx.dev/l/n/nest/overview)>) workspace if needed
+- Goto Nx official website on how to setup [Nx](<(https://nx.dev/l/n/nest/overview)>) workspace if you are not familiar with Nx workspace
 - `nx start` to run the app
 - `nx build` to run build app
 - `npm test` to run the test suits on the app

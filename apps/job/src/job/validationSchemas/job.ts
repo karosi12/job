@@ -42,9 +42,8 @@ const jobSchemas = {
       .messages({ 'any.required': 'Description is required' }),
     location: Joi.string()
       .label('location')
-      .lowercase()
       .required()
-      .valid('berlin', 'hamburg', 'remote')
+      .valid('Berlin', 'Hamburg', 'Remote')
       .messages({ 'any.required': 'Location is required' }),
   }),
 

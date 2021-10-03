@@ -2,14 +2,20 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { Job } from '../interfaces/job.interface';
 import { JobController } from '../job.controller';
 import { JobService } from '../job.service';
-
+import { v4 as uuidv4 } from 'uuid';
 describe('JobController', () => {
-  const id = '232323';
+  const id = uuidv4();
   const jobData: Job = {
     id,
     jobTitle: 'UI/UX',
     description: 'We are looking for a professional UI/UX',
     location: 'Berlin',
+  };
+  const jobEmptyData: Job = {
+    id,
+    jobTitle: '',
+    description: '',
+    location: '',
   };
   const res = {
     status: jest.fn(() => {
@@ -20,7 +26,15 @@ describe('JobController', () => {
       };
     }),
   };
-
+  const ErrorRes = {
+    status: jest.fn(() => {
+      return {
+        send: jest.fn(() => {
+          return undefined;
+        }),
+      };
+    }),
+  };
   const listRes = {
     status: jest.fn(() => {
       return {
@@ -61,21 +75,32 @@ describe('JobController', () => {
     expect(controller).toBeDefined();
   });
 
-  it('should create a job', () => {
+  it('should create a job - [success]', () => {
     expect(controller.create(jobData, res)).toMatchObject<Job>(jobData);
   });
 
-  it('should fetch jobs', () => {
+  it('should create a job - [failure]', () => {
+    expect(controller.create(jobEmptyData, ErrorRes)).toEqual<Job>(undefined);
+  });
+
+  it('should fetch jobs - [success]', () => {
     expect(controller.findAll(listRes)).toMatchObject<Job[]>([jobData]);
   });
 
-  it('should update a jobs', () => {
-    expect(controller.update(jobData, '1234', res)).toMatchObject<Job>({
-      ...jobData,
-    });
+  it('should update a jobs - [success]', () => {
+    expect(controller.update(jobData, id, res)).toMatchObject<Job>(jobData);
   });
 
-  it('should delete a job', () => {
+  it('should update a jobs - [failure]', () => {
+    expect(controller.update(jobEmptyData, id, ErrorRes)).toEqual<Job>(
+      undefined
+    );
+  });
+
+  it('should delete a job - [success]', () => {
     expect(controller.delete(id, res)).toMatchObject<Job>(jobData);
+  });
+  it('should delete a job - [failure]', () => {
+    expect(controller.delete(id, ErrorRes)).toEqual<Job>(undefined);
   });
 });

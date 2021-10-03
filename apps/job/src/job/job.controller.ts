@@ -9,7 +9,7 @@ import {
   Res,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { sendError, sendSuccess, validate } from '../shared/app/appController';
+import { sendError, sendSuccess,sendCreated, validate } from '../shared/app/appController';
 import { jobSchemas } from './validationSchemas/job';
 import { JobDto } from './dto/job.dto';
 import { JobService } from './job.service';
@@ -25,7 +25,7 @@ export class JobController {
     }
     const job = this.jobService.create(data);
     if (job) {
-      return sendSuccess({ res, data: job });
+      return sendCreated({ res, data: job });
     }
     return sendError({ res, errors: 'unable to create a job' });
   }
