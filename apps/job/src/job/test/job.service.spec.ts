@@ -12,6 +12,12 @@ describe('JobService', () => {
     description: 'We are looking for a professional UI/UX',
     location: 'Berlin',
   };
+  const jobEmptyData: Job = {
+    id,
+    jobTitle: '',
+    description: '',
+    location: '',
+  };
 
   const mockUtils = {
     generateId: jest.fn(() => uuidv4()),
@@ -36,10 +42,14 @@ describe('JobService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should create a new job', () => {
+  it('should create a new job - [success]', () => {
     expect(service.create(jobData)).toMatchObject(jobData);
   });
-  it('should return array of jobs', () => {
+
+  it('should create a new job - [failure]', () => {
+    expect(service.create(jobEmptyData)).toEqual(undefined);
+  });
+  it('should return array of jobs - [success]', () => {
     const data = service.findAll();
     expect(data[0]).toHaveProperty('id');
     expect(data[0]).toHaveProperty('jobTitle');
@@ -47,7 +57,7 @@ describe('JobService', () => {
     expect(data[0]).toHaveProperty('location');
   });
 
-  it('should return a job', () => {
+  it('should return a job - [success]', () => {
     const list = service.findAll();
     const data = service.find({ id: list[0].id });
     expect(data).toHaveProperty('id');
@@ -55,7 +65,13 @@ describe('JobService', () => {
     expect(data).toHaveProperty('description');
     expect(data).toHaveProperty('location');
   });
-  it('should update a job', () => {
+
+  it('should return a job - [failure]', () => {
+    service.findAll();
+    const data = service.find({ id });
+    expect(data).toEqual(undefined);
+  });
+  it('should update a job - [success]', () => {
     const list = service.findAll();
     const { id } = list[0];
     const data = service.update({ id, ...jobData });
@@ -65,12 +81,23 @@ describe('JobService', () => {
     expect(data).toHaveProperty('location');
   });
 
-  it('should delete a job', () => {
+  it('should update a job - [failure]', () => {
+    service.findAll();
+    const data = service.update({ id, ...jobData });
+    expect(data).toEqual(undefined);
+  });
+
+  it('should delete a job - [success]', () => {
     const list = service.findAll();
     const data = service.delete({ id: list[0].id });
     expect(data).toHaveProperty('id');
     expect(data).toHaveProperty('jobTitle');
     expect(data).toHaveProperty('description');
     expect(data).toHaveProperty('location');
+  });
+  it('should delete a job - [failure]', () => {
+    service.findAll();
+    const data = service.delete({ id });
+    expect(data).toEqual(undefined);
   });
 });
